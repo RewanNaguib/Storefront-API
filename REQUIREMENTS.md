@@ -5,38 +5,44 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
+- Index     ('/products')
+- Show      ('/products/:id')
+- Create    ('/products') [token required]
 - [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index ('/users') [token required]  
+- Show  ('/users/:id') [token required]   
+- Create "registeration  / signup" ('/users/signup') [token required] 
+- Create "Authentication / signin" ('/users/signin') [token required] 
 
 #### Orders
-- Current Order by user (args: user id)[token required]
+- Create Order ('/orders') [token required]
+- Current Order by user (args: user_id) ('/users/:id/orders') [token required]   
 - [OPTIONAL] Completed Orders by user (args: user id)[token required]
 
 ## Data Shapes
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+- id    (INTEGER)
+- name  (VARCHAR(150)) (NOT NULL)
+- price (INTEGER) (NOT NULL)
+
 
 #### User
-- id
-- firstName
-- lastName
-- password
+- id (INTEGER)
+- name (VARCHAR(150)) (NOT NULL)
+- email (VARCHAR(200))(unique) (NOT NULL)
+- password (VARCHAR(150)) (NOT NULL)
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id (INTEGER)
+- status of order (active or complete) (ENUM) (DEFAULT "active") (NOT NULL)
+- user_id (INTEGER) (FOREIGN KEY)
+
+#### Orders_products
+- id (INTEGER)
+- order_id (INTEGER) (FOREIGN KEY)
+- product_id (INTEGER) (FOREIGN KEY)
+- quantity of each product in the order (INTEGER) (NOT NULL)
+
 
