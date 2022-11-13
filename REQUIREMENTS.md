@@ -24,22 +24,22 @@ These are the notes from a meeting with the frontend developer that describe wha
 ## Data Shapes
 #### Product
 - id    (INTEGER)
-- name  (VARCHAR(150)) (NOT NULL)
-- price (INTEGER) (NOT NULL)
+- productname  (VARCHAR(150)) (NOT NULL)
+- productprice (INTEGER) (NOT NULL)
 
 
-#### User
+#### Users
 - id (INTEGER)
-- name (VARCHAR(150)) (NOT NULL)
-- email (VARCHAR(200))(unique) (NOT NULL)
-- password (VARCHAR(150)) (NOT NULL)
+- username (VARCHAR(150)) (NOT NULL)
+- useremail (VARCHAR(200))(unique) (NOT NULL)
+- userpassword (VARCHAR(150)) (NOT NULL)
 
 #### Orders
 - id (INTEGER)
-- status of order (active or complete) (ENUM) (DEFAULT "active") (NOT NULL)
+- orderstatus (open or closed) (ENUM) (DEFAULT "open") (NOT NULL)
 - user_id (INTEGER) (FOREIGN KEY)
 
-#### Orders_products
+#### Order_products
 - id (INTEGER)
 - order_id (INTEGER) (FOREIGN KEY)
 - product_id (INTEGER) (FOREIGN KEY)
