@@ -75,9 +75,11 @@ const update = async(req: Request, res: Response) => {
 
 const destroy = async(req: Request, res: Response) => {
     const id: string = req.params.id;
+    console.log(id);
     if(id){
         try{
             const deletedUser: number = await user.destroy(id);
+            console.log(deletedUser);
             if(deletedUser){
                 res.status(204).json(deletedUser);
             }
@@ -91,7 +93,7 @@ const destroy = async(req: Request, res: Response) => {
     else{
         res.sendStatus(400);
     }
-}
+};
 
 const create = async(req: Request, res: Response) => {
         const userObject: UserType = {
@@ -100,7 +102,7 @@ const create = async(req: Request, res: Response) => {
             userpassword: req.body.userpassword
         };
     try{
-        if(userObject && typeof userObject.username == 'string' && userObject.username.trim().length!==0 && typeof userObject.useremail == 'string' && userObject.useremail.trim().length!==0 && typeof userObject.userpassword == 'string' && userObject.userpassword.trim().length!==0){
+        if(userObject && typeof userObject.username == 'string' && userObject.username.trim().length !== 0 && typeof userObject.useremail == 'string' && userObject.useremail.trim().length !== 0 && typeof userObject.userpassword == 'string' && userObject.userpassword.trim().length!== 0){
             const newUser: UserType = await user.create(userObject);
             const token = jwt.sign(
                 {

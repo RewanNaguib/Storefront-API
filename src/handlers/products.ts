@@ -39,7 +39,7 @@ const create = async(req: Request, res: Response) => {
         productprice: req.body.productprice
     };
 try{
-    if(productObject && typeof productObject.productname == 'string' && productObject.productname.trim().length !== 0 && typeof productObject.productprice == 'number' && productObject.productprice !== undefined){
+    if(productObject && typeof productObject.productname == 'string' && productObject.productname.trim().length !== 0 && typeof productObject.productprice == 'number' && productObject.productprice !== undefined && productObject.productprice > 1){
         const newProduct: ProductType = await product.create(productObject);
         res.json(newProduct);
     }
@@ -61,7 +61,7 @@ const update = async(req: Request, res: Response) => {
         try{
             const updatedProduct: ProductType = await product.update(id, productObject.productname, productObject.productprice);
             if(updatedProduct){
-                if(updatedProduct && typeof productObject.productname == 'string' && productObject.productname.trim().length !== 0 && typeof productObject.productprice == 'number' && productObject.productprice !== undefined){
+                if(updatedProduct && typeof productObject.productname == 'string' && productObject.productname.trim().length !== 0 && typeof productObject.productprice == 'number' && productObject.productprice !== undefined && productObject.productprice > 1){
                 res.json(updatedProduct);
                 }
                 else{
@@ -98,7 +98,7 @@ const destroy = async(req: Request, res: Response) => {
     else{
         res.sendStatus(400);
     }
-}
+};
 
 
 const productRoutes = (app: express.Application): void => {

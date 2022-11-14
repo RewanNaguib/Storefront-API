@@ -23,9 +23,14 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Create "Authentication / signin" ('/login') [token required] "POST"  (useremail, userpassword)
 
 #### Orders
-- Create Order ('/orders') [token required] "POST"
-- Current Order by user (args: user_id) ('/users/:id/orders') [token required]  "GET"
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Index ('/orders') [token required] "GET"
+- Show ('/orders/:id') [token required] "GET"
+- Get user orders  "orders of specific user"  ('/users/:id/orders') [token required] "GET"
+- Get order details ('/order-details/:id') [token required] "GET"
+- Create "order for specific user"  ('/users/:id/orders') [token required] "POST"
+- Add product to Order ('/add-products/orders/:id') [token required] "POST"
+- [OPTIONAL] Completed Orders by user (args: user id) ('/users/:id/closed-orders') [token required] "GET"
+- Update order status to be closed ('/closed-order/:id') [token required] "PATCH"
 
 
 
