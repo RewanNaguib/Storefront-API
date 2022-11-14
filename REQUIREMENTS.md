@@ -3,30 +3,35 @@ The company stakeholders want to create an online storefront to showcase their g
 
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
 
+
+
 ## API Endpoints
 #### Products
-- Index     ('/products')
-- Show      ('/products/:id')
-- Create    ('/products') [token required]
+- Index     ('/products') "GET"
+- Show      ('/products/:id') "GET"
+- Create    ('/products') [token required] "POST"
 - [OPTIONAL] Top 5 most popular products 
 
 #### Users
-- Index ('/users') [token required]  
-- Show  ('/users/:id') [token required]   
-- Create "registeration  / signup" ('/users/signup') [token required] 
-- Create "Authentication / signin" ('/users/signin') [token required] 
+- Index ('/users') [token required]  "GET"
+- Show  ('/users/:id') [token required] "GET"
+- update ('/users/:id') [token required] "PATCH"
+- Delete ('/users/:id') [token required] "DELETE"
+- Create "registeration  / signup" ('/signup') [token required] "POST" (username, useremail, userpassword)
+- Create "Authentication / signin" ('/login') [token required] "POST"  (useremail, userpassword)
 
 #### Orders
-- Create Order ('/orders') [token required]
-- Current Order by user (args: user_id) ('/users/:id/orders') [token required]   
+- Create Order ('/orders') [token required] "POST"
+- Current Order by user (args: user_id) ('/users/:id/orders') [token required]  "GET"
 - [OPTIONAL] Completed Orders by user (args: user id)[token required]
+
+
 
 ## Data Shapes
 #### Product
 - id    (INTEGER)
 - productname  (VARCHAR(150)) (NOT NULL)
 - productprice (INTEGER) (NOT NULL)
-
 
 #### Users
 - id (INTEGER)
