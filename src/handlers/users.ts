@@ -54,7 +54,7 @@ const update = async(req: Request, res: Response) => {
         try{
             const updatedUser: UserType = await user.update(id, userObject.username, userObject.useremail, userObject.userpassword);
             if(updatedUser){
-                if(updatedUser && typeof userObject.username == 'string' && typeof userObject.useremail == 'string' && typeof userObject.userpassword == 'string'){
+                if(updatedUser && typeof userObject.username == 'string' && userObject.username.trim().length !== 0 && typeof userObject.useremail == 'string' && userObject.useremail.trim().length !== 0 && typeof userObject.userpassword == 'string' && userObject.userpassword.trim().length !== 0){
                 res.json(updatedUser);
                 }
                 else{
@@ -100,7 +100,7 @@ const create = async(req: Request, res: Response) => {
             userpassword: req.body.userpassword
         };
     try{
-        if(userObject && typeof userObject.username == 'string' && typeof userObject.useremail == 'string' && typeof userObject.userpassword == 'string'){
+        if(userObject && typeof userObject.username == 'string' && userObject.username.trim().length!==0 && typeof userObject.useremail == 'string' && userObject.useremail.trim().length!==0 && typeof userObject.userpassword == 'string' && userObject.userpassword.trim().length!==0){
             const newUser: UserType = await user.create(userObject);
             const token = jwt.sign(
                 {

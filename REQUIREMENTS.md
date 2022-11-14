@@ -10,6 +10,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index     ('/products') "GET"
 - Show      ('/products/:id') "GET"
 - Create    ('/products') [token required] "POST"
+- Update    ('/products/:id') [token required] "PATCH"
+- Delete    ('/products/:id') [token required] "DELETE"
 - [OPTIONAL] Top 5 most popular products 
 
 #### Users
