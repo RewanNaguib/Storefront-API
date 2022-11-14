@@ -2,15 +2,6 @@ import express, {Request, Response} from "express";
 import {ProductType, Product} from "../models/product";
 import {authentication} from "../middlewares/authentication";
 
-// import jwt from "jsonwebtoken";
-// import dotenv from "dotenv";
-// import bcrypt from "bcrypt";
-
-// dotenv.config();
-
-// const tokenSecret = process.env.TOKEN_SECRET;
-// const pepper = process.env.BCRYPT_PASSWORD;
-// const saltRounds = process.env.SALT_ROUNDS;
 const product = new Product();
 
 const index = async(req: Request, res: Response) => {
