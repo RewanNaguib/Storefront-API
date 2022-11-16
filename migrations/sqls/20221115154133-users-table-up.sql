@@ -1,4 +1,4 @@
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id serial PRIMARY KEY, 
     username VARCHAR(150) NOT NULL, 
     useremail VARCHAR(200) NOT NULL UNIQUE,

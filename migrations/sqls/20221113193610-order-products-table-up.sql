@@ -1,4 +1,4 @@
-CREATE TABLE order_products(
+CREATE TABLE IF NOT EXISTS order_products(
     id serial PRIMARY KEY, 
     quantity INTEGER NOT NULL, 
     orderId INTEGER REFERENCES orders(id), 

@@ -12,7 +12,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Create    ('/products') [token required] "POST"
 - Update    ('/products/:id') [token required] "PATCH"
 - Delete    ('/products/:id') [token required] "DELETE"
-- [OPTIONAL] Top 5 most popular products 
+<!-- - [OPTIONAL] Top 5 most popular products  -->
 
 #### Users
 - Index ('/users') [token required]  "GET"
@@ -51,7 +51,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - orderstatus (open or closed) (ENUM) (DEFAULT "open") (NOT NULL)
 - user_id (INTEGER) (FOREIGN KEY)
 
-#### Order_products
+#### Order|_products
 - id (INTEGER)
 - order_id (INTEGER) (FOREIGN KEY)
 - product_id (INTEGER) (FOREIGN KEY)

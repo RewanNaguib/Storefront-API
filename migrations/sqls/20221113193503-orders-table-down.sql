@@ -1,2 +1,3 @@
-DROP TYPE order_status_type;
-DROP TABLE orders;
+DROP TABLE IF EXISTS orders;
+
+DROP TYPE IF EXISTS order_status_type;
