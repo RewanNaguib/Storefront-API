@@ -19,8 +19,8 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Show  ('/users/:id') [token required] "GET"
 - update ('/users/:id') [token required] "PATCH"
 - Delete ('/users/:id') [token required] "DELETE"
-- Create "registeration  / signup" ('/signup') [token required] "POST" (username, useremail, userpassword)
-- Create "Authentication / signin" ('/login') [token required] "POST"  (useremail, userpassword)
+- Create "registeration  / signup" ('/signup') "POST" (username, useremail, userpassword)
+- Create "Authentication / signin" ('/login') "POST"  (useremail, userpassword)
 
 #### Orders
 - Index ('/orders') [token required] "GET"

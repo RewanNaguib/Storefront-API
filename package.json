@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "set ENV=test&& db-migrate --env test reset && npx db-migrate --env test up && npm run build && npm run jasmine",
+    "test": "export ENV=test&& db-migrate --env test reset && npx db-migrate --env test up && npm run build && npm run jasmine",
     "lint": "eslint . --ext .ts",
     "tsc": "tsc",
     "start": "nodemon src/index.ts",
