@@ -1,4 +1,5 @@
 import client from '../database';
+import {getError} from '../utils/index';
 
 export type ProductType = {
   id?: number;
@@ -18,7 +19,7 @@ export class Product {
       return products;
     } catch (error) {
       throw new Error(
-        `couldn't get products, Error: ${(error as Error).message}`
+        `couldn't get products, Error: ${getError(error)}`
       );
     }
   }
@@ -34,7 +35,7 @@ export class Product {
       return product;
     } catch (error) {
       throw new Error(
-        `couldn't get product ${id}, Error: ${(error as Error).message}`
+        `couldn't get product ${id}, Error: ${getError(error)}`
       );
     }
   }
@@ -49,10 +50,10 @@ export class Product {
       conn.release();
       const product = result.rows[0];
       return product;
-    } catch (err) {
+    } catch (error) {
       throw new Error(
         `couldn't add new product ${p.productname}, Error: ${
-          (err as Error).message
+          getError(error)
         }`
       );
     }
@@ -74,8 +75,8 @@ export class Product {
       return product;
     } catch (error) {
       throw new Error(
-        `couldn't update product ${id}, Error: ${(error as Error).message}`
-      );
+        `couldn't update product ${id}, Error: ${getError(error)}`
+        );
     }
   }
 
@@ -89,7 +90,7 @@ export class Product {
       return result.rowCount;
     } catch (error) {
       throw new Error(
-        `couldn't delete product ${id}, Error: ${(error as Error).message}`
+        `couldn't delete product ${id}, Error: ${getError(error)}`
       );
     }
   }
