@@ -93,7 +93,6 @@ describe('Full Ptoject', () => {
       expect(result?.useremail).toEqual(newUser.useremail);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -115,7 +114,6 @@ describe('Full Ptoject', () => {
       expect(result).toBeNull;
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -135,7 +133,6 @@ describe('Full Ptoject', () => {
       expect(createdUser.useremail).toEqual(newUser.useremail);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -154,7 +151,6 @@ describe('Full Ptoject', () => {
       expect(result.length).toBe(1);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -175,7 +171,6 @@ describe('Full Ptoject', () => {
       expect(result.id).toEqual(newUser.id);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -201,7 +196,6 @@ describe('Full Ptoject', () => {
       expect(result.id).toEqual(newUser.id);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -220,7 +214,6 @@ describe('Full Ptoject', () => {
       expect(result).toEqual(1);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -263,7 +256,6 @@ describe('Full Ptoject', () => {
       const token = userToken;
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -288,7 +280,6 @@ describe('Full Ptoject', () => {
       expect(response.status).toBe(401);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -306,7 +297,6 @@ describe('Full Ptoject', () => {
       expect(response.status).toBe(201);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -338,7 +328,6 @@ describe('Full Ptoject', () => {
       expect(response.status).toBe(200);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -370,7 +359,6 @@ describe('Full Ptoject', () => {
       expect(response.status).toBe(200);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -407,7 +395,6 @@ describe('Full Ptoject', () => {
       expect(response.status).toBe(200);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
@@ -439,7 +426,6 @@ describe('Full Ptoject', () => {
       expect(response.status).toBe(204);
 
       const conn = await client.connect();
-      // const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
       const sql = 'DELETE FROM users;';
       await conn.query(sql);
       conn.release();
