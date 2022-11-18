@@ -1,47 +1,12 @@
 
 import { UserType, User } from '../user';
-import { ProductType, Product } from '../product';
-import { OrderType, OrderProductType, Order } from '../order';
 import client from '../../database';
 import supertest from 'supertest';
 import app from '../../index';
-import { Connection } from 'pg';
 
 const user = new User();
 
 describe('User Model', () => {
-    // beforeEach(function (done) {
-    //     global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
-    //     setTimeout(function () {
-    //         console.log('inside timeout');
-    //         done();
-    //     }, 500);
-    // });
-    // beforeAll(function() {
-    //     jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
-    // });
-
-    // const newUser: UserType = {
-    //     username: 'user',
-    //     useremail: 'user@gmail.com',
-    //     userpassword: 'user123',
-    // };
-    // // const createdUser = {...newUser, id:1};
-
-    // beforeAll(async()=>{
-    //     console.log('before all');
-    //     let createdUser = await user.create(newUser);
-    //     newUser.id = createdUser.id;
-    // });
-
-    // afterAll(async()=>{
-    //     console.log('after all');
-    //     const conn = await client.connect();
-    //     const sql = 'ALTER SEQUENCE users_id_seq RESTART WITH 1;'
-    //     // const sql = 'DELETE FROM users;';
-    //     await conn.query(sql);
-    //     conn.release();
-    // });
 
     it('should have create method', () => {
       expect(user.create).toBeDefined();
@@ -68,6 +33,7 @@ describe('User Model', () => {
     });
 
     it('authenticate method should return a user that is already registered', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -76,6 +42,7 @@ describe('User Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
+      // test authenticate method
       const result = await user.authenticate(
         newUser.useremail,
         newUser.userpassword
@@ -90,6 +57,7 @@ describe('User Model', () => {
     });
 
     it('authenticate method should return null when entering not registerd user data or wrong credentials', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -98,6 +66,7 @@ describe('User Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
+      // test autenticate method to return null if user is not authenticated
       const result = (await user.authenticate(
         'wrongemail@gmail.com',
         'worngpassword123'
@@ -111,6 +80,7 @@ describe('User Model', () => {
     });
 
     it('create method should register/create a new user and return it', async () => {
+      // test create user method
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -130,6 +100,7 @@ describe('User Model', () => {
     });
 
     it('index method should return array of all the created users', async () => {
+      // create new method
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -138,6 +109,7 @@ describe('User Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
+      // test index method
       const result: UserType[] = await user.index();
       expect(result.length).toBe(1);
 
@@ -148,6 +120,7 @@ describe('User Model', () => {
     });
 
     it('show method should return "user" when passing id of specific user', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -156,6 +129,7 @@ describe('User Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
+      // test show method
       const result: UserType = await user.show(String(newUser.id));
       expect(result.username).toEqual(newUser.username);
       expect(result.useremail).toEqual(newUser.useremail);
@@ -168,6 +142,7 @@ describe('User Model', () => {
     });
 
     it('update method should update the data of existing user and return the updated version of it', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -176,6 +151,7 @@ describe('User Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
+      // test update method
       const result: UserType = await user.update(
         String(newUser.id),
         'userupdate',
@@ -193,6 +169,7 @@ describe('User Model', () => {
     });
 
     it('destroy method should delete existing user when passing id of specific user', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -201,6 +178,7 @@ describe('User Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
+      // test destroy method
       const result: number = await user.destroy(String(newUser.id));
       expect(result).toEqual(1);
 
@@ -209,24 +187,15 @@ describe('User Model', () => {
       await conn.query(sql);
       conn.release();
     });
+
   });
 
-  describe('Users Routes(Handler)', () => {
-    // beforeEach(function (done) {
-    //     global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
-    //     setTimeout(function () {
-    //         console.log('inside timeout');
-    //         done();
-    //     }, 500);
-    // });
-
-    // beforeAll(function() {
-    //     jasmine.DEFAULT_TIMEOUT_INTERVAL = 6000;
-    // });
+  describe('Users Routes', () => {
 
     const request = supertest(app);
 
     it('authenticate method response should be token and status 200 if the user is authenticated', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -235,6 +204,7 @@ describe('User Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
+      // test login end point
       const response = await request
         .post('/login')
         .set('content-type', 'application/json')
@@ -253,6 +223,7 @@ describe('User Model', () => {
     });
 
     it('authenticate method response status 401 if the user is unauthorized', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -261,6 +232,7 @@ describe('User Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
+      // test login end point, it should return status 401 "unauthorized" if the user is not authenticated
       const response = await request
         .post('/login')
         .set('content-type', 'application/json')
@@ -277,6 +249,7 @@ describe('User Model', () => {
     });
 
     it('create method should response with the created user and with status 201 created', async () => {
+      // test signup endpoint
       const response = await request
         .post('/signup')
         .set('content-type', 'application/json')
@@ -294,6 +267,7 @@ describe('User Model', () => {
     });
 
     it('index method should return all the created users with status 200 if the token is valid ', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -312,6 +286,7 @@ describe('User Model', () => {
         });
       let token: string = res.body;
 
+      // test get all users end point
       const response = await request
         .get('/users')
         .set('content-type', 'application/json')
@@ -325,6 +300,7 @@ describe('User Model', () => {
     });
 
     it('show user by id method should return the specified user with status 200 if the token is valid ', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -343,6 +319,7 @@ describe('User Model', () => {
         });
       let token: string = res.body;
 
+      // test show user by id end point
       const response = await request
         .get(`/users/${String(newUser.id)}`)
         .set('content-type', 'application/json')
@@ -356,6 +333,7 @@ describe('User Model', () => {
     });
 
     it('update user by id method should return the updated data of specified user with status 200 if the token is valid ', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -374,6 +352,7 @@ describe('User Model', () => {
         });
       let token: string = res.body;
 
+      // test update user by id end point
       const response = await request
         .patch(`/users/${String(newUser.id)}`)
         .set('content-type', 'application/json')
@@ -392,6 +371,7 @@ describe('User Model', () => {
     });
 
     it('delete user by id method should delete the specified user with status 204 No Content if the token is valid ', async () => {
+      // create new user
       const newUser: UserType = {
         username: 'user',
         useremail: 'user@gmail.com',
@@ -410,6 +390,7 @@ describe('User Model', () => {
         });
       let token: string = res.body;
 
+      // test delete user by id endpoint
       const response = await request
         .delete(`/users/${String(newUser.id)}`)
         .set('content-type', 'application/json')
@@ -421,4 +402,5 @@ describe('User Model', () => {
       await conn.query(sql);
       conn.release();
     });
+
   });

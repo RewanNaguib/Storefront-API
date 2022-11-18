@@ -75,6 +75,7 @@ export class User {
       const conn = await client.connect();
       const sql = 'SELECT * FROM users WHERE useremail = ($1);';
       const result = await conn.query(sql, [useremail]);
+      conn.release();
       if (result.rowCount) {
         const user: UserType = result.rows[0] as UserType;
         // will compare the password that the user enters with the password returned from the SELECT query

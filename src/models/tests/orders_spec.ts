@@ -5,22 +5,12 @@ import { OrderType, OrderProductType, Order } from '../order';
 import client from '../../database';
 import supertest from 'supertest';
 import app from '../../index';
-import { Connection } from 'pg';
 
 const user = new User();
 const product = new Product();
 const order = new Order();
+
 describe('Order Model', () => {
-    // beforeEach(function (done) {
-    //     global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
-    //     setTimeout(function () {
-    //         console.log('inside timeout');
-    //         done();
-    //     }, 500);
-    // });
-    // beforeAll(function() {
-    //     jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000000;
-    // });
 
     it('should have index method', () => {
       expect(order.index).toBeDefined();
@@ -75,6 +65,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test index method
       const result: OrderType[] = await order.index();
       expect(result.length).toBe(1);
 
@@ -110,6 +101,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test show method
       const result: OrderType = await order.show(String(newOrder.id));
       expect(result.orderstatus).toEqual('open');
       expect(result.id).toEqual(newOrder.id);
@@ -135,7 +127,7 @@ describe('Order Model', () => {
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
 
-      //create new order
+      //test create order
       const newOrder: OrderType = {
         orderstatus: 'open',
         userId: Number(newUser.id)
@@ -181,6 +173,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test getUserOrders method
       const result = await order.getUserOrders(String(newUser.id));
       expect(result[0].orderstatus).toEqual('open');
       expect(result[0].id).toEqual(newOrder.id);
@@ -213,7 +206,6 @@ describe('Order Model', () => {
       };
       let createdProduct = await product.create(newProduct);
       newProduct.id = createdProduct.id;
-      console.log(newProduct.id, 'newProduct.id');
 
       //create new order
       const newOrder: OrderType = {
@@ -225,20 +217,16 @@ describe('Order Model', () => {
         newOrder.userId
       );
       newOrder.id = createdOrder.id;
-      console.log(newOrder.id, 'newOrder.id');
 
       let quantity: number = 1;
 
+      // test addProductToOrder method
       const result: OrderProductType = await order.addProductToOrder(
         quantity,
         String(newOrder.id),
         Number(newProduct.id)
       );
       expect(result.quantity).toEqual(1);
-      console.log(result.orderId), 'result.orderId';
-      console.log(result, 'resultttttttttt');
-      //   expect(result.orderId).toEqual(newOrder.id as number);
-      //   expect(result.productId).toEqual(newProduct.id as number);
 
       const connection3 = await client.connect();
       const sqlQuery3 = 'DELETE FROM order_products;';
@@ -260,19 +248,10 @@ describe('Order Model', () => {
       await connection.query(sqlQuery);
       connection.release();
     });
+
   });
 
-  describe('Orders Routes(Handler)', () => {
-    // beforeEach(function (done) {
-    //     global.jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
-    //     setTimeout(function () {
-    //         console.log('inside timeout');
-    //         done();
-    //     }, 500);
-    // });
-    // beforeAll(function() {
-    //     jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000000;
-    // });
+  describe('Orders Routes', () => {
 
     const request = supertest(app);
 
@@ -285,6 +264,7 @@ describe('Order Model', () => {
       };
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
+
       //login
       const res = await request
         .post('/login')
@@ -294,6 +274,7 @@ describe('Order Model', () => {
           userpassword: 'user123'
         });
       let token: string = res.body;
+
       //create new order
       const newOrder: OrderType = {
         orderstatus: 'open',
@@ -305,6 +286,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test get all orders endpoint
       const response = await request
         .get('/orders')
         .set('content-type', 'application/json')
@@ -331,6 +313,7 @@ describe('Order Model', () => {
       };
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
+
       //login
       const res = await request
         .post('/login')
@@ -340,6 +323,7 @@ describe('Order Model', () => {
           userpassword: 'user123'
         });
       let token: string = res.body;
+
       //create new order
       const newOrder: OrderType = {
         orderstatus: 'open',
@@ -351,6 +335,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test show order by id endpoint
       const response = await request
         .get(`/orders/${String(newOrder.id)}`)
         .set('content-type', 'application/json')
@@ -387,6 +372,7 @@ describe('Order Model', () => {
         });
       let token: string = res.body;
 
+      // test create order enpoint 
       const response = await request
         .post(`/users/${String(newUser.id)}/orders`)
         .set('content-type', 'application/json')
@@ -417,6 +403,7 @@ describe('Order Model', () => {
       };
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
+
       //login
       const res = await request
         .post('/login')
@@ -426,6 +413,7 @@ describe('Order Model', () => {
           userpassword: 'user123'
         });
       let token: string = res.body;
+
       //create new product
       const newProduct: ProductType = {
         productname: 'product 1',
@@ -433,6 +421,7 @@ describe('Order Model', () => {
       };
       let createdProduct = await product.create(newProduct);
       newProduct.id = createdProduct.id;
+
       //create new order
       const newOrder: OrderType = {
         orderstatus: 'open',
@@ -444,6 +433,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test add product to order endpoint
       const response = await request
         .post(`/add-products/orders/${String(newOrder.id)}`)
         .set('content-type', 'application/json')
@@ -484,6 +474,7 @@ describe('Order Model', () => {
       };
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
+
       //login
       const res = await request
         .post('/login')
@@ -493,6 +484,7 @@ describe('Order Model', () => {
           userpassword: 'user123'
         });
       let token: string = res.body;
+
       //create new order
       const newOrder: OrderType = {
         orderstatus: 'open',
@@ -504,6 +496,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test get the orders of specific user endpoint
       const response = await request
         .get(`/users/${String(newUser.id)}/orders`)
         .set('content-type', 'application/json')
@@ -530,6 +523,7 @@ describe('Order Model', () => {
       };
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
+
       //login
       const res = await request
         .post('/login')
@@ -539,6 +533,7 @@ describe('Order Model', () => {
           userpassword: 'user123'
         });
       let token: string = res.body;
+
       //create new order
       const newOrder: OrderType = {
         orderstatus: 'closed',
@@ -550,6 +545,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test get user orders with orderstatus=closed endpoint
       const response = await request
         .get(`/users/${String(newUser.id)}/closed-orders`)
         .set('content-type', 'application/json')
@@ -576,6 +572,7 @@ describe('Order Model', () => {
       };
       let createdUser = await user.create(newUser);
       newUser.id = createdUser.id;
+
       //login
       const res = await request
         .post('/login')
@@ -585,6 +582,7 @@ describe('Order Model', () => {
           userpassword: 'user123'
         });
       let token: string = res.body;
+
       //create new order
       const newOrder: OrderType = {
         orderstatus: 'open',
@@ -596,6 +594,7 @@ describe('Order Model', () => {
       );
       newOrder.id = createdOrder.id;
 
+      // test update order status from open to closed endpoint
       const response = await request
         .patch(`/closed-order/${String(newOrder.id)}`)
         .set('content-type', 'application/json')
@@ -615,4 +614,5 @@ describe('Order Model', () => {
       await connection.query(sqlQuery);
       connection.release();
     });
+
   });

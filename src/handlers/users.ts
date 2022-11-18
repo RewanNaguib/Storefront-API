@@ -86,11 +86,9 @@ const update = async (req: Request, res: Response) => {
 
 const destroy = async (req: Request, res: Response) => {
   const id: string = req.params.id;
-  console.log(id);
   if (id) {
     try {
       const deletedUser: number = await user.destroy(id);
-      console.log(deletedUser);
       if (deletedUser) {
         res.status(204).json(deletedUser);
       } else {

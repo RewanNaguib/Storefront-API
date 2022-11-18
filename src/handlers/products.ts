@@ -33,7 +33,6 @@ const show = async (req: Request, res: Response) => {
 };
 
 const create = async (req: Request, res: Response) => {
-  console.log(req.body, 'bodyyyyyyyyy');
   const productObject: ProductType = {
     productname: req.body.productname,
     productprice: req.body.productprice
@@ -47,12 +46,9 @@ const create = async (req: Request, res: Response) => {
       productObject.productprice !== undefined &&
       productObject.productprice > 1
     ) {
-      console.log('inside if before await');
       const newProduct: ProductType = await product.create(productObject);
-      console.log('inside if after await');
       res.status(201).json(newProduct);
     } else {
-      console.log('elseeeee');
       res.sendStatus(400);
     }
   } catch (error) {

@@ -26,6 +26,7 @@ The Application contains the following libraries:
 
 ### To Run Server
   run `npm run start`
+  port:7070
   
 ### To Run The Project
  1) Run `npm install`
